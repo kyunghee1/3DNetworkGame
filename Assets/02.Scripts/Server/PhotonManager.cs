@@ -19,11 +19,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
         PhotonNetwork.NickName = $"티모_{UnityEngine.Random.Range(0, 100)}";
 
         // 3. 씬을 설정한다.
+        //+++PhotonNetwork.LoadLevel("씬이름");+++
         // 4. 연결한다.
         PhotonNetwork.ConnectUsingSettings();
 
-        PhotonNetwork.SendRate = 30;
+        PhotonNetwork.SendRate = 50;
         PhotonNetwork.SerializationRate = 30;
+
+       // PhotonNetwork.SendRate = 30;
+      //  PhotonNetwork.SerializationRate = 30;
     }
 
     // 포톤 서버에 접속 후 호출되는 콜백 함수

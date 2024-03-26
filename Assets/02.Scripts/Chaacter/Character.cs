@@ -13,7 +13,12 @@ public class Character : MonoBehaviour, IPunObservable
 {
     public PhotonView PhotonView { get; private set; }
     public Stat Stat;
-    
+
+    private Vector3 _receivedPosition;
+    private Quaternion _receivedRotation;
+
+
+
     void Awake()
     {
         Stat.Init();
@@ -36,21 +41,21 @@ public class Character : MonoBehaviour, IPunObservable
         }
         else if(stream.IsReading)//데이터 수신
         {
-            Vector3 recevedPosion = (Vector3)stream.ReceiveNext();
-            Quaternion recevedRotation = (Quaternion)stream.ReceiveNext();
+            _receivedPosition = (Vector3)stream.ReceiveNext();
+            _receivedRotation = (Quaternion)stream.ReceiveNext();
 
-            if(!PhotonView.IsMine)
-            {
-                transform.position = recevedPosion;
-                transform.rotation = recevedRotation;
-            }
-           
+
         }
         //info 는 송수신 성공/ 실패 여부에 대한 메세지 담겨있다.
     }
 
     void Update()
     {
-        
+        if (!PhotonView.IsMine)
+        {
+            transform.position = Vector3.Lerp(transform.position, _receivedPosition, Time.deltaTime * 20f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, _receivedRotation, Time.deltaTime * 20f);
+        }
+
     }
 }

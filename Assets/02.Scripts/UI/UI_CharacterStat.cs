@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class UI_CharacterStat : CharacterAbility
+public class UI_CharacterStat : MonoBehaviour
 {
     public static UI_CharacterStat Instance { get; private set; }
 

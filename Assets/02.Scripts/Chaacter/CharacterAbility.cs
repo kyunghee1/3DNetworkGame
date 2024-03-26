@@ -9,7 +9,7 @@ public abstract class CharacterAbility : MonoBehaviour
 
     protected virtual void Awake()
     {
-        _owner = GetComponent<Character>();
+        _owner = GetComponentInParent<Character>();
     }
    
 }
