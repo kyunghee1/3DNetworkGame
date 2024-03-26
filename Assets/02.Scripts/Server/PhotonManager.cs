@@ -21,6 +21,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
         // 3. 씬을 설정한다.
         // 4. 연결한다.
         PhotonNetwork.ConnectUsingSettings();
+
+        PhotonNetwork.SendRate = 30;
+        PhotonNetwork.SerializationRate = 30;
     }
 
     // 포톤 서버에 접속 후 호출되는 콜백 함수
@@ -82,6 +85,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
         Debug.Log($"RoomName: {PhotonNetwork.CurrentRoom.Name}");
         Debug.Log($"PlayerCount: {PhotonNetwork.CurrentRoom.PlayerCount}");
         Debug.Log($"MaxCount: {PhotonNetwork.CurrentRoom.MaxPlayers}");
+
+        PhotonNetwork.Instantiate("Character", Vector3.zero, Quaternion.identity);
     }
 
     // 방 생성에 실패했을 때 호출되는 콜백 함수

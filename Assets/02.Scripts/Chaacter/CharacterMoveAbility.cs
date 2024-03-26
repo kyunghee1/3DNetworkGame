@@ -1,7 +1,7 @@
 
-using System.Collections;
-using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [RequireComponent(typeof(CharacterController))]
@@ -22,6 +22,10 @@ public class CharacterMoveAbility : CharacterAbility
     
     void Update()
     {
+        if(!_owner.PhotonView.IsMine)
+        {
+            return;
+        }
         //순서
         //1. 사용자의 키보드 입력을 받는다.
         float h = Input.GetAxis("Horizontal");
@@ -32,17 +36,37 @@ public class CharacterMoveAbility : CharacterAbility
         Vector3 dir = new Vector3(h, 0, v);
         dir.Normalize();
         dir = Camera.main.transform.TransformDirection(dir);
+
         _animator.SetFloat("Move", dir.magnitude);
 
-        //4. 중력 적용하세요.
+        //3. 중력 적용하세요.
         dir.y = -1f;
 
-        //3. 이동속도에 따라 그 방향으로 이동한다.
-        _characterController.Move(dir * (Owner.Stat.MoveSpeed * Time.deltaTime));
-
-     
+        float moveSpeed = _owner.Stat.MoveSpeed;
+        if (Input.GetKey(KeyCode.LeftShift) && _owner.Stat.Stamina > 0)
+        {
+            moveSpeed = _owner.Stat.RunSpeed;
+            _owner.Stat.Stamina -= Time.deltaTime * _owner.Stat.runningStaminaConsumptionRate;
         }
+        else
+        {
+            _owner.Stat.Stamina += Time.deltaTime * _owner.Stat.staminaRecoverRate;
+            if (_owner.Stat.Stamina >= _owner.Stat.MaxStamina)
+            {
+                _owner.Stat.Stamina = _owner.Stat.MaxStamina;
+            }
+        }
+
+
+        //4. 이동속도에 따라 그 방향으로 이동한다.
+        _characterController.Move(dir * (_owner.Stat.MoveSpeed * Time.deltaTime));
+
+
+        
        
+       
+    }
+   
 
 
     }

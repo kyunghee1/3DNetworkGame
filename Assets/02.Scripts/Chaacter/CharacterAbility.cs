@@ -3,22 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class CharacterAbility : MonoBehaviour
+public abstract class CharacterAbility : MonoBehaviour
 {
-   protected Character Owner {  get; private set; }
+   protected Character _owner {  get; private set; }
 
-    protected void Awake()
+    protected virtual void Awake()
     {
-        Owner = GetComponent<Character>();
+        _owner = GetComponent<Character>();
     }
-    void Start()
-    {
-        
-    }
-
-  
-    void Update()
-    {
-        
-    }
+   
 }

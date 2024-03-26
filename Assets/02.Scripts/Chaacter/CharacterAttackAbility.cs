@@ -1,7 +1,8 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
+
 
 
 public class CharacterAttackAbility : CharacterAbility
@@ -15,24 +16,40 @@ public class CharacterAttackAbility : CharacterAbility
     //준수 전략
     //- 기존의 클래스로 해결 할 수 없다면 새로운 클래스를 구현
     private Animator _animator;
-   
+
     private float _attackTimer = 0;
 
     void Start()
     {
         _animator = GetComponent<Animator>();
+
+     
     }
 
 
     void Update()
     {
-        _attackTimer += Time.deltaTime;
-        if (Input.GetMouseButtonDown(0) && _attackTimer >= Owner.Stat.AttackCoolTime)
+        if (!_owner.PhotonView.IsMine)
         {
+            return;
+        }
+
+        _attackTimer += Time.deltaTime;
+
+        bool haveStamina = _owner.Stat.Stamina >= _owner.Stat.attackStaminaConsumption;
+
+        if (Input.GetMouseButtonDown(0) && _attackTimer >= _owner.Stat.AttackCoolTime && haveStamina)
+        {
+            _owner.Stat.Stamina -= _owner.Stat.attackStaminaConsumption;
             _attackTimer = 0f;
             _animator.SetTrigger($"Attack{UnityEngine.Random.Range(1, 4)}");
         }
 
-        
+
+
+
     }
 }
+    
+
+
