@@ -10,14 +10,5 @@ public class Weapon : MonoBehaviour
         MyCharacterAttackAbility.OnTriggerEnter(other);
 
     }
-    void Start()
-    {
-        
-    }
-
-   
-    void Update()
-    {
-        
-    }
+ 
 }

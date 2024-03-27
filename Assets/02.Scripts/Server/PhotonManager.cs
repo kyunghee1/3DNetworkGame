@@ -26,8 +26,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
         PhotonNetwork.SendRate = 50;
         PhotonNetwork.SerializationRate = 30;
 
-       // PhotonNetwork.SendRate = 30;
-      //  PhotonNetwork.SerializationRate = 30;
+      
     }
 
     // 포톤 서버에 접속 후 호출되는 콜백 함수
@@ -90,7 +89,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks // PUN의 다양한 서�
         Debug.Log($"PlayerCount: {PhotonNetwork.CurrentRoom.PlayerCount}");
         Debug.Log($"MaxCount: {PhotonNetwork.CurrentRoom.MaxPlayers}");
 
-        PhotonNetwork.Instantiate("Character", Vector3.zero, Quaternion.identity);
+       // PhotonNetwork.Instantiate("Character", Vector3.zero, Quaternion.identity);
         PhotonNetwork.Instantiate(nameof(Character), Vector3.zero, Quaternion.identity);
     }
 

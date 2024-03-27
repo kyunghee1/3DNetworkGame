@@ -28,8 +28,8 @@ public class CharacterMoveAbility : CharacterAbility
         }
         //순서
         //1. 사용자의 키보드 입력을 받는다.
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
 
      
         //2. '캐릭터가 바라보는 방향'을 기준으로 방향을 설정한다.

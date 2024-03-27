@@ -19,6 +19,7 @@ public class CharacterRotateAbility : CharacterAbility
         {
             Debug.Log(2323);
             GameObject.FindWithTag("FollowCamera").GetComponent<CinemachineVirtualCamera>().Follow = CameraRoot;
+            MinimapCamera.Instance.Target = _owner;
         }
     }
 
