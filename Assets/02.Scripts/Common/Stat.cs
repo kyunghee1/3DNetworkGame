@@ -23,6 +23,8 @@ public class Stat
     public float runningStaminaConsumptionRate;
 
     public float attackStaminaConsumption;
+
+    public int Damage;
     
 
    public  bool isRunning = false;

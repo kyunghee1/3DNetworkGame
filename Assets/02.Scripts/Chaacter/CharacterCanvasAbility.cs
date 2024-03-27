@@ -23,7 +23,7 @@ public class CharacterCanvasAbility : CharacterAbility
         //Todo. 빌보드구현
         MyCanvas.transform.forward = Camera.main.transform.forward;
 
-        HealthSilder.value  = _owner.Stat.Health / _owner.Stat.MaxHealth;
+        HealthSilder.value  =(float)_owner.Stat.Health / _owner.Stat.MaxHealth;
         StaminaSilder.value = _owner.Stat.Stamina / _owner.Stat.MaxStamina;
     }
 }

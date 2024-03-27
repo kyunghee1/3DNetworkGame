@@ -9,7 +9,7 @@ using Cinemachine;
 [RequireComponent(typeof(CharacterAttackAbility))]
 
 
-public class Character : MonoBehaviour, IPunObservable
+public class Character : MonoBehaviour, IPunObservable, IDamaged
 {
     public PhotonView PhotonView { get; private set; }
     public Stat Stat;
@@ -34,19 +34,25 @@ public class Character : MonoBehaviour, IPunObservable
     {
         
         //stream(통로)은 서버에서 주고받을 데이터가 담겨있는 변수
-        if (stream.IsWriting) //데이터를 전송
+        if (!PhotonView.IsMine) //데이터를 전송
         {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
+            
+            stream.SendNext(Stat.Health);
+            stream.SendNext(Stat.Stamina);
         }
         else if(stream.IsReading)//데이터 수신
         {
-            _receivedPosition = (Vector3)stream.ReceiveNext();
-            _receivedRotation = (Quaternion)stream.ReceiveNext();
+           Stat.Health = (int)stream.ReceiveNext();
+           Stat.Stamina = (float)stream.ReceiveNext();
 
 
         }
         //info 는 송수신 성공/ 실패 여부에 대한 메세지 담겨있다.
+    }
+    [PunRPC]
+    public void Damaged(int damage)
+    {
+        Stat.Health -= damage;
     }
 
     void Update()
