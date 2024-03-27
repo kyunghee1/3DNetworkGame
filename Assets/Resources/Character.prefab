@@ -2021,7 +2021,7 @@ MonoBehaviour:
     attackStaminaConsumption: 20
     Damage: 0
     isRunning: 0
-  hitEffectPrefab: {fileID: 0}
+  HitEffect: {fileID: 19800006, guid: bcaff8fc36e95584bb27cc3cf7c6cb14, type: 3}
 --- !u!114 &8014929874277583181
 MonoBehaviour:
   m_ObjectHideFlags: 0

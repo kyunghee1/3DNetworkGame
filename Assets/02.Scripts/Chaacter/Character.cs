@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System;
 
 [RequireComponent(typeof(CharacterMoveAbility))]
 [RequireComponent(typeof(CharacterRotateAbility))]
@@ -17,7 +18,7 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     private Vector3 _receivedPosition;
     private Quaternion _receivedRotation;
 
-    public GameObject hitEffectPrefab;
+    public ParticleSystem HitEffect;
 
 
 
@@ -62,7 +63,7 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
         Stat.Health -= damage;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         //적이 피격되었을 때 호출되는 메서드
         //피격 이펙트 생성 및 동기화
@@ -75,13 +76,16 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     [PunRPC]
     void SpawnHitEffect()
     {
-        //피격 이펙트 생성 및 위치 설정
-        GameObject hitEffect = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
-
         //damageInfo.Position = (other.transform.position + transform.position) /2f;
+        
 
         //일정 시간 후에 이펙트를 파괴
-        Destroy(hitEffect, 3f);
+        Destroy(HitEffect, 3f);
+    }
+    
+    private GameObject Instantiate(object hitEffectPrefab, Vector3 position, Quaternion identity)
+    {
+        throw new NotImplementedException();
     }
 }
  
