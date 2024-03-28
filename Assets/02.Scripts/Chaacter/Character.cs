@@ -2,8 +2,9 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 using System;
+using Cinemachine;
+
 
 [RequireComponent(typeof(CharacterMoveAbility))]
 [RequireComponent(typeof(CharacterRotateAbility))]
@@ -18,7 +19,7 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     private Vector3 _receivedPosition;
     private Quaternion _receivedRotation;
 
-    public ParticleSystem HitEffect;
+
 
 
 
@@ -61,32 +62,20 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
     public void Damaged(int damage)
     {
         Stat.Health -= damage;
-    }
 
-    public void TakeDamage(int damage)
-    {
-        //적이 피격되었을 때 호출되는 메서드
-        //피격 이펙트 생성 및 동기화
         if (PhotonView.IsMine)
         {
-            PhotonView.RPC("SpawnHitEffect", RpcTarget.All);
-        }
-        //피격에 대한 처리(예: 체력 감소 등)
-    }
-    [PunRPC]
-    void SpawnHitEffect()
-    {
-        //damageInfo.Position = (other.transform.position + transform.position) /2f;
-        
+            // 카메라 흔들기 위해 Impulse를 발생시킨다.
+            CinemachineImpulseSource impulseSource;
 
-        //일정 시간 후에 이펙트를 파괴
-        Destroy(HitEffect, 3f);
-    }
-    
-    private GameObject Instantiate(object hitEffectPrefab, Vector3 position, Quaternion identity)
-    {
-        throw new NotImplementedException();
+            if (TryGetComponent<CinemachineImpulseSource>(out impulseSource))
+            {
+                float strength = 0.4f;
+                impulseSource.GenerateImpulseWithVelocity(UnityEngine.Random.insideUnitSphere.normalized * strength);
+            }
+            UI_DamagedEffect.instance.Show(duration: 0.5f);
+        }
     }
 }
- 
+
 

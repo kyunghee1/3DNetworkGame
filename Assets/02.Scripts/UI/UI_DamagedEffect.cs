@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(CanvasGroup))]
+[RequireComponent(typeof(AnimationCurve))]
+public class UI_DamagedEffect : MonoBehaviour
+{
+    public static UI_DamagedEffect instance { get; private set; }
+    private CanvasGroup _canvasGroup;
+
+    public AnimationCurve ShowCurve;
+
+     private void Awake()
+    {
+        instance = this;
+
+        _canvasGroup = GetComponent<CanvasGroup>();
+        _canvasGroup.alpha = 0;
+    }
+    public void Show(float duration)
+    {
+        _canvasGroup.alpha = 1f;
+        StartCoroutine(Show_Coroutine(duration));
+    }
+
+    private IEnumerator Show_Coroutine(float duration)
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            _canvasGroup.alpha = ShowCurve.Evaluate( elapsedTime/duration);
+            yield return null;
+        }
+        _canvasGroup.alpha = 0f;
+    }
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        
+    }
+}
