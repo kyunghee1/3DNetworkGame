@@ -6,14 +6,14 @@ using UnityEngine;
 [RequireComponent(typeof(AnimationCurve))]
 public class UI_DamagedEffect : MonoBehaviour
 {
-    public static UI_DamagedEffect instance { get; private set; }
+    public static UI_DamagedEffect Instance { get; private set; }
     private CanvasGroup _canvasGroup;
 
     public AnimationCurve ShowCurve;
 
-     private void Awake()
+    private void Awake()
     {
-        instance = this;
+        Instance = this;
 
         _canvasGroup = GetComponent<CanvasGroup>();
         _canvasGroup.alpha = 0;
@@ -27,21 +27,14 @@ public class UI_DamagedEffect : MonoBehaviour
     private IEnumerator Show_Coroutine(float duration)
     {
         float elapsedTime = 0;
+
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            _canvasGroup.alpha = ShowCurve.Evaluate( elapsedTime/duration);
+            _canvasGroup.alpha = ShowCurve.Evaluate(elapsedTime / duration);
             yield return null;
         }
         _canvasGroup.alpha = 0f;
     }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }
+    

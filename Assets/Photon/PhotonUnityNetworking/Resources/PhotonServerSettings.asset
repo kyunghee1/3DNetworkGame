@@ -19,7 +19,7 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: kr
+    FixedRegion: 
     Server: 
     Port: 0
     ProxyServer: 
@@ -35,14 +35,15 @@ MonoBehaviour:
   StartInOfflineMode: 0
   RpcList:
   - ClickRpc
+  - Damaged
   - DestroyRpc
   - DestroySpaceship
   - Fire
-  - RespawnSpaceship
   - PlayAttackAnimation
-  - OnTriggerEnter
-  - Damaged
-  - SpawnHitEffect
+  - RespawnSpaceship
+  - Death
+  - PlayMotion
+  - Live
   DisableAutoOpenWizard: 1
-  ShowSettings: 1
+  ShowSettings: 0
   DevRegionSetOnce: 1
