@@ -14,7 +14,7 @@ public class Stat
     public float MaxStamina;
     public float Stamina;
     public float staminaRecoverRate;
-    public float runningStaminaConsumptionRate;
+    public float RunConsumeStamina;
 
     public float RunSpeed;
     public float MoveSpeed;
@@ -23,6 +23,9 @@ public class Stat
 
     public float AttackCoolTime;
     public float attackStaminaConsumption;
+
+    public float JumpPower;
+    public float JumpConsumStamina;
 
     
 

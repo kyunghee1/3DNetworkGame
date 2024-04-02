@@ -141,6 +141,28 @@ public class Character : MonoBehaviour, IPunObservable, IDamaged
             StartCoroutine(Death_Coroutine());
         }
     }
+    public int Score = 0;
+    private void DropItems()
+    {
+        int randomValue = UnityEngine.Random.Range(0, 100);
+        if (randomValue > 30) // 70%
+        {
+            int randomCount = UnityEngine.Random.Range(3, 6);
+            for(int i = 0; i < randomCount; ++i)
+            {
+                ItemObjectFactory.Instance.RequestCreate(ItemType.ScoreStone, transform.position);
+            }
+        }
+        else if (randomValue > 10 ) // 20%
+        {
+            ItemObjectFactory.Instance.RequestCreate(ItemType.HealthPotion, transform.position);
+        }
+        else
+        {
+            ItemObjectFactory.Instance.RequestCreate(ItemType.StaminaPotion, transform.position);
+        }
+       
+    }
 
     private IEnumerator Death_Coroutine()
     {

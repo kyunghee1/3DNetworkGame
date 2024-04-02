@@ -18,8 +18,5 @@ public class BattleScene : MonoBehaviour
 
     }
     
-    void Update()
-    {
-        
-    }
+  
 }

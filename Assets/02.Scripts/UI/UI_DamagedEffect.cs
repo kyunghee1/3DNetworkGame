@@ -28,7 +28,7 @@ public class UI_DamagedEffect : MonoBehaviour
     {
         float elapsedTime = 0;
 
-        while (elapsedTime < duration)
+        while (elapsedTime <= duration)
         {
             elapsedTime += Time.deltaTime;
             _canvasGroup.alpha = ShowCurve.Evaluate(elapsedTime / duration);
